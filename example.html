@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>post message example</title>
+<!--    <script src="http://mudhub.org/m/JSON,common"></script> -->
+    <script src="JSON-common.js"></script>
+    <script src="jquery-1.6.2.js"></script>
+    <script src="xhr-proxy.js"></script>
+    <script>
+      XHRProxy = XHRProxy.create('http://localhost/xhr-proxy/proxy.html');
+      function callAjax() {
+      XHRProxy.ajax('hello-world.json', { complete : function(xhr, status) {
+      console.log("Complete");
+          console.log("Status: "+status);
+          console.log("Xhr obj: ");
+          console.log(xhr);
+      },
+        success : function(value) {
+          console.log("Success");
+          console.log(value);
+        },
+        error : function(xhr, status, err) {
+          console.log("Error");
+          console.log("Status: "+status);
+          console.log("Error thrown: "+err);
+          console.log("Xhr obj:");
+          console.log(xhr);
+        }
+      });
+      }
+
+      setTimeout("callAjax()", 1000);
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
