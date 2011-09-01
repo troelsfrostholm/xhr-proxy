@@ -1,10 +1,16 @@
+/*
+  This is the proxy that runs in an iFrame. 
+
+*/
+
 window.onload = function() {
 
     var JSON = require('JSON');
-    //    var curl = require('curl');
+
+    var domain = "http://localhost/xhr-proxy/";
 
     var makeUrl = function(service) {
-	return "http://localhost/xhr-proxy/"+service;
+	return domain+service;
     }
 
     var onevent = function(name, fn) {
@@ -16,12 +22,6 @@ window.onload = function() {
     };
 
     var onmessage = function(data) {
-	/*
-	data.args[data.args.length-1] = function(err, value) {
-	    post({id:data.id, err:err, value:value});
-	};
-
-	curl[data.method].apply(curl, data.args);*/
 	if(!typeof(data.settings) === "Object") {
 	    throw Error("malformed input");
 	}

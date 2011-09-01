@@ -1,3 +1,11 @@
+/*
+  XHRProxy
+
+  This is the programmer's interface to the xhr proxy, which enables the user to make cross origin xhr requests to the domain on which it is served. 
+  
+  See README.markdown and example.html for usage. 
+ */
+
 (function(exports) {
     var JSON   = require('JSON');
     var common = require('common');
@@ -8,6 +16,11 @@
     
     exports.supported = typeof window.postMessage === 'function';
     
+    /*
+      Returns an instance of the XHRProxy. 
+      Arguments: 
+        proxy : the full url of proxy.html
+    */
     exports.create = function(proxy) {
 	var that = {};
 	
@@ -61,6 +74,10 @@
 		onmessage(event);
 	    });
 
+	/*
+	  Sends message to the iFrame. 
+	  Callback is invoked, when the iFrame responds. 
+	*/
 	var send = function(message, callback) {
 	    var id = common.gensym();
 
@@ -72,6 +89,14 @@
 		});
 	};
 
+	/*
+	  Send a cross-origin xhr request. 
+	  Arguments: 
+	    service : The request is sent to the url: domain/service, 
+	              where domain is the domain on which the proxy is served. 
+            settings : Same as in jQuery-1.6.2's $.ajax() method. 
+
+	 */
 	that.ajax = function() {
 	    var callbacks = { };
 	    return function(service, settings) {
